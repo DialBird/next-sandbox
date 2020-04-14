@@ -9,9 +9,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <title>My Next</title>
-        </Head>
+        <Head/>
         <body>
           <Main/>
           <NextScript/>
