@@ -1,4 +1,3 @@
-import Layout from '../components/MyLayout';
 import axios from 'axios';
 import useSWR from 'swr';
 
@@ -12,7 +11,7 @@ const Quote = props => {
   if (!data) quote = 'Loading...';
   if (error) quote = 'Failed to fetch the quote.';
   return (
-    <Layout>
+    <React.Fragment>
       <main className="center">
         <div className="quote">{quote}</div>
         {author && <span className="author">- {author}</span>}
@@ -36,7 +35,7 @@ const Quote = props => {
           font-size: 20px;
         }
       `}</style>
-    </Layout>
+    </React.Fragment>
   );
 }
 

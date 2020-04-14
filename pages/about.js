@@ -1,10 +1,8 @@
-import Layout from '../components/MyLayout';
-
 const About = () => {
   return (
-    <Layout>
+    <React.Fragment>
       <p>This is the about page</p>
-    </Layout>
+    </React.Fragment>
   );
 }
 

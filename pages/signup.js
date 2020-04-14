@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
 import AuthContext from '../contexts/AuthContext';
-import Layout from '../components/MyLayout';
 
 const Signup = () => {
   const { signup } = useContext(AuthContext);
@@ -13,7 +12,7 @@ const Signup = () => {
   }
 
   return (
-    <Layout>
+    <React.Fragment>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -26,7 +25,7 @@ const Signup = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-    </Layout>
+    </React.Fragment>
   );
 }
 
