@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <div className='navbar navbar-expand-lg navbar-light bg-light'>
-      <div class="container">
+      <div className="container">
         <a className="navbar-brand" href="/">Next Sample</a>
         {currentUser ? renderNavs() : renderBeforeLoginNavs()}
       </div>

@@ -1,16 +1,12 @@
-import { useContext } from 'react';
-
-import AuthContext, { AuthProvider } from '../contexts/AuthContext';
-
 import Header from './Header';
 
 const Layout = props => (
-  <AuthProvider>
+  <div>
     <Header />
     <div className='container'>
       {props.children}
     </div>
-  </AuthProvider>
+  </div>
 );
 
 export default Layout;
