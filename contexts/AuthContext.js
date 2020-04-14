@@ -9,24 +9,30 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
 
-  const login = async (email, password) => {
-    await firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
-      alert(error);
-    });
-    router.push('/dashboard');
-  }
-
-  const signup = async (email, password) => {
-    const { user } =
-      await firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+  const login = (email, password) => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(res => {
+        router.push('/dashboard');
+      })
+      .catch(error => {
         alert(error);
       });
-    router.push('/dashboard');
   }
 
-  const logout = async () => {
-    await firebase.auth().signOut().catch(error => alert(error));
-    router.push('/');
+  const signup = (email, password) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        router.push('/dashboard');
+      })
+      .catch(error => {
+        alert(error);
+      });
+  }
+
+  const logout = () => {
+    firebase.auth().signOut()
+      .then(res => router.push('/'))
+      .catch(error => alert(error));
   }
 
   useEffect(() => {
