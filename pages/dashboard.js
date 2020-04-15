@@ -1,5 +1,8 @@
+import { useContext } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
+
+import AuthContext from '../contexts/AuthContext';
 
 const PostLink = props => (
   <li>
@@ -10,6 +13,13 @@ const PostLink = props => (
 );
 
 const Dashboard = props => {
+  const { isAuthReady } = useContext(AuthContext);
+
+  if (!isAuthReady) {
+    console.log(isAuthReady);
+    return null;
+  }
+
   return (
     <React.Fragment>
       <h1>Batman TV Shows</h1>

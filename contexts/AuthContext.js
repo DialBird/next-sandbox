@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 
 import firebase from '../config/firebase';
@@ -8,8 +8,9 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
-  const login = (email, password) => {
+  const login = useCallback((email, password) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(res => {
         router.push('/dashboard');
@@ -17,9 +18,9 @@ export const AuthProvider = ({ children }) => {
       .catch(error => {
         alert(error);
       });
-  }
+  })
 
-  const signup = (email, password) => {
+  const signup = useCallback((email, password) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(res => {
         router.push('/dashboard');
@@ -27,25 +28,29 @@ export const AuthProvider = ({ children }) => {
       .catch(error => {
         alert(error);
       });
-  }
+  });
 
-  const logout = () => {
+  const logout = useCallback(() => {
     firebase.auth().signOut()
       .then(res => router.push('/'))
       .catch(error => alert(error));
-  }
+  });
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(setCurrentUser);
+    firebase.auth().onAuthStateChanged(user => {
+      setCurrentUser(user);
+      setIsAuthReady(true);
+    });
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
+        currentUser,
+        isAuthReady,
         login,
-        signup,
         logout,
-        currentUser
+        signup,
       }}
     >
       {children}
