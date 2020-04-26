@@ -5,6 +5,12 @@ import firebase from '../config/firebase';
 
 const AuthContext = createContext();
 
+const beforeLoginPaths = [
+  '/',
+  '/login',
+  '/signup'
+]
+
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
@@ -38,6 +44,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
+      const pathname = window.location.pathname
+      if (!user && !beforeLoginPaths.includes(pathname)) {
+        router.push('/')
+      } else if (user && beforeLoginPaths.includes(pathname)) {
+        router.push('/dashboard')
+      }
       setCurrentUser(user);
       setIsAuthReady(true);
     });

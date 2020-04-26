@@ -13,14 +13,4 @@ const Index = props => {
   );
 }
 
-// Index.getInitialProps = async ({ res }) => {
-//   const { currentUser } = useContext(AuthContext);
-//
-//   if (currentUser) {
-//     res.writeHead(302, { Location: '/dashboard' });
-//     res.end();
-//   }
-//   return {};
-// }
-
 export default Index;
